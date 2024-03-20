@@ -1,0 +1,82 @@
+[
+{
+  "directory": "/workspaces/2024-ikt218-osdev/build/6_microhard",
+  "command": "/usr/bin/nasm -I/workspaces/2024-ikt218-osdev/src/6_microhard/include -f elf32 -o CMakeFiles/uiaos-kernel.dir/src/multiboot2.asm.o /workspaces/2024-ikt218-osdev/src/6_microhard/src/multiboot2.asm",
+  "file": "/workspaces/2024-ikt218-osdev/src/6_microhard/src/multiboot2.asm"
+},
+{
+  "directory": "/workspaces/2024-ikt218-osdev/build/6_microhard",
+  "command": "/usr/local/bin/i686-elf-gcc -I/workspaces/2024-ikt218-osdev/src/6_microhard/include -g -Wall -Wextra -nostdinc -nostdlib -fno-builtin -fno-stack-protector -fno-stack-check -fno-lto -fPIE -m32 -march=i386 -mno-mmx -mno-sse -mno-sse2 -mno-red-zone -Wno-main -g -Wno-unused-variable -Wno-unused-parameter -std=gnu99 -o CMakeFiles/uiaos-kernel.dir/src/kernel.c.o -c /workspaces/2024-ikt218-osdev/src/6_microhard/src/kernel.c",
+  "file": "/workspaces/2024-ikt218-osdev/src/6_microhard/src/kernel.c"
+},
+{
+  "directory": "/workspaces/2024-ikt218-osdev/build/6_microhard",
+  "command": "/usr/local/bin/i686-elf-g++ -I/workspaces/2024-ikt218-osdev/src/6_microhard/include -g -Wall -Wextra -nostdinc -nostdlib -fno-builtin -fno-stack-protector -fno-stack-check -fno-lto -fPIE -m32 -march=i386 -mno-mmx -mno-sse -mno-sse2 -mno-red-zone -g -Wno-unused-variable -Wno-unused-parameter -std=gnu++20 -o CMakeFiles/uiaos-kernel.dir/src/kernel.cpp.o -c /workspaces/2024-ikt218-osdev/src/6_microhard/src/kernel.cpp",
+  "file": "/workspaces/2024-ikt218-osdev/src/6_microhard/src/kernel.cpp"
+},
+{
+  "directory": "/workspaces/2024-ikt218-osdev/build/6_microhard",
+  "command": "/usr/local/bin/i686-elf-gcc -I/workspaces/2024-ikt218-osdev/src/6_microhard/include -g -Wall -Wextra -nostdinc -nostdlib -fno-builtin -fno-stack-protector -fno-stack-check -fno-lto -fPIE -m32 -march=i386 -mno-mmx -mno-sse -mno-sse2 -mno-red-zone -Wno-main -g -Wno-unused-variable -Wno-unused-parameter -std=gnu99 -o CMakeFiles/uiaos-kernel.dir/src/GDT/GDT.c.o -c /workspaces/2024-ikt218-osdev/src/6_microhard/src/GDT/GDT.c",
+  "file": "/workspaces/2024-ikt218-osdev/src/6_microhard/src/GDT/GDT.c"
+},
+{
+  "directory": "/workspaces/2024-ikt218-osdev/build/6_microhard",
+  "command": "/usr/bin/nasm -I/workspaces/2024-ikt218-osdev/src/6_microhard/include -f elf32 -o CMakeFiles/uiaos-kernel.dir/src/GDT/GDT.asm.o /workspaces/2024-ikt218-osdev/src/6_microhard/src/GDT/GDT.asm",
+  "file": "/workspaces/2024-ikt218-osdev/src/6_microhard/src/GDT/GDT.asm"
+},
+{
+  "directory": "/workspaces/2024-ikt218-osdev/build/6_microhard",
+  "command": "/usr/bin/nasm -I/workspaces/2024-ikt218-osdev/src/6_microhard/include -f elf32 -o CMakeFiles/uiaos-kernel.dir/src/Interrupts/ISR/ISR.asm.o /workspaces/2024-ikt218-osdev/src/6_microhard/src/Interrupts/ISR/ISR.asm",
+  "file": "/workspaces/2024-ikt218-osdev/src/6_microhard/src/Interrupts/ISR/ISR.asm"
+},
+{
+  "directory": "/workspaces/2024-ikt218-osdev/build/6_microhard",
+  "command": "/usr/local/bin/i686-elf-gcc -I/workspaces/2024-ikt218-osdev/src/6_microhard/include -g -Wall -Wextra -nostdinc -nostdlib -fno-builtin -fno-stack-protector -fno-stack-check -fno-lto -fPIE -m32 -march=i386 -mno-mmx -mno-sse -mno-sse2 -mno-red-zone -Wno-main -g -Wno-unused-variable -Wno-unused-parameter -std=gnu99 -o CMakeFiles/uiaos-kernel.dir/src/Interrupts/ISR/ISR.c.o -c /workspaces/2024-ikt218-osdev/src/6_microhard/src/Interrupts/ISR/ISR.c",
+  "file": "/workspaces/2024-ikt218-osdev/src/6_microhard/src/Interrupts/ISR/ISR.c"
+},
+{
+  "directory": "/workspaces/2024-ikt218-osdev/build/6_microhard",
+  "command": "/usr/local/bin/i686-elf-gcc -I/workspaces/2024-ikt218-osdev/src/6_microhard/include -g -Wall -Wextra -nostdinc -nostdlib -fno-builtin -fno-stack-protector -fno-stack-check -fno-lto -fPIE -m32 -march=i386 -mno-mmx -mno-sse -mno-sse2 -mno-red-zone -Wno-main -g -Wno-unused-variable -Wno-unused-parameter -std=gnu99 -o CMakeFiles/uiaos-kernel.dir/src/Interrupts/IDT/IDT.c.o -c /workspaces/2024-ikt218-osdev/src/6_microhard/src/Interrupts/IDT/IDT.c",
+  "file": "/workspaces/2024-ikt218-osdev/src/6_microhard/src/Interrupts/IDT/IDT.c"
+},
+{
+  "directory": "/workspaces/2024-ikt218-osdev/build/6_microhard",
+  "command": "/usr/bin/nasm -I/workspaces/2024-ikt218-osdev/src/6_microhard/include -f elf32 -o CMakeFiles/uiaos-kernel.dir/src/Interrupts/IDT/IDT.asm.o /workspaces/2024-ikt218-osdev/src/6_microhard/src/Interrupts/IDT/IDT.asm",
+  "file": "/workspaces/2024-ikt218-osdev/src/6_microhard/src/Interrupts/IDT/IDT.asm"
+},
+{
+  "directory": "/workspaces/2024-ikt218-osdev/build/6_microhard",
+  "command": "/usr/local/bin/i686-elf-gcc -I/workspaces/2024-ikt218-osdev/src/6_microhard/include -g -Wall -Wextra -nostdinc -nostdlib -fno-builtin -fno-stack-protector -fno-stack-check -fno-lto -fPIE -m32 -march=i386 -mno-mmx -mno-sse -mno-sse2 -mno-red-zone -Wno-main -g -Wno-unused-variable -Wno-unused-parameter -std=gnu99 -o CMakeFiles/uiaos-kernel.dir/src/Interrupts/IO/IO.c.o -c /workspaces/2024-ikt218-osdev/src/6_microhard/src/Interrupts/IO/IO.c",
+  "file": "/workspaces/2024-ikt218-osdev/src/6_microhard/src/Interrupts/IO/IO.c"
+},
+{
+  "directory": "/workspaces/2024-ikt218-osdev/build/6_microhard",
+  "command": "/usr/bin/nasm -I/workspaces/2024-ikt218-osdev/src/6_microhard/include -f elf32 -o CMakeFiles/uiaos-kernel.dir/src/Interrupts/IO/IO.asm.o /workspaces/2024-ikt218-osdev/src/6_microhard/src/Interrupts/IO/IO.asm",
+  "file": "/workspaces/2024-ikt218-osdev/src/6_microhard/src/Interrupts/IO/IO.asm"
+},
+{
+  "directory": "/workspaces/2024-ikt218-osdev/build/6_microhard",
+  "command": "/usr/local/bin/i686-elf-gcc -I/workspaces/2024-ikt218-osdev/src/6_microhard/include -g -Wall -Wextra -nostdinc -nostdlib -fno-builtin -fno-stack-protector -fno-stack-check -fno-lto -fPIE -m32 -march=i386 -mno-mmx -mno-sse -mno-sse2 -mno-red-zone -Wno-main -g -Wno-unused-variable -Wno-unused-parameter -std=gnu99 -o CMakeFiles/uiaos-kernel.dir/src/Interrupts/PIC/PIC.c.o -c /workspaces/2024-ikt218-osdev/src/6_microhard/src/Interrupts/PIC/PIC.c",
+  "file": "/workspaces/2024-ikt218-osdev/src/6_microhard/src/Interrupts/PIC/PIC.c"
+},
+{
+  "directory": "/workspaces/2024-ikt218-osdev/build/6_microhard",
+  "command": "/usr/local/bin/i686-elf-gcc -I/workspaces/2024-ikt218-osdev/src/6_microhard/include -g -Wall -Wextra -nostdinc -nostdlib -fno-builtin -fno-stack-protector -fno-stack-check -fno-lto -fPIE -m32 -march=i386 -mno-mmx -mno-sse -mno-sse2 -mno-red-zone -Wno-main -g -Wno-unused-variable -Wno-unused-parameter -std=gnu99 -o CMakeFiles/uiaos-kernel.dir/src/Interrupts/IRQ/IRQ.c.o -c /workspaces/2024-ikt218-osdev/src/6_microhard/src/Interrupts/IRQ/IRQ.c",
+  "file": "/workspaces/2024-ikt218-osdev/src/6_microhard/src/Interrupts/IRQ/IRQ.c"
+},
+{
+  "directory": "/workspaces/2024-ikt218-osdev/build/6_microhard",
+  "command": "/usr/local/bin/i686-elf-gcc -I/workspaces/2024-ikt218-osdev/src/6_microhard/include -g -Wall -Wextra -nostdinc -nostdlib -fno-builtin -fno-stack-protector -fno-stack-check -fno-lto -fPIE -m32 -march=i386 -mno-mmx -mno-sse -mno-sse2 -mno-red-zone -Wno-main -g -Wno-unused-variable -Wno-unused-parameter -std=gnu99 -o CMakeFiles/uiaos-kernel.dir/src/Drivers/keyboardIRQ.c.o -c /workspaces/2024-ikt218-osdev/src/6_microhard/src/Drivers/keyboardIRQ.c",
+  "file": "/workspaces/2024-ikt218-osdev/src/6_microhard/src/Drivers/keyboardIRQ.c"
+},
+{
+  "directory": "/workspaces/2024-ikt218-osdev/build/6_microhard",
+  "command": "/usr/local/bin/i686-elf-gcc -I/workspaces/2024-ikt218-osdev/src/6_microhard/include -g -Wall -Wextra -nostdinc -nostdlib -fno-builtin -fno-stack-protector -fno-stack-check -fno-lto -fPIE -m32 -march=i386 -mno-mmx -mno-sse -mno-sse2 -mno-red-zone -Wno-main -g -Wno-unused-variable -Wno-unused-parameter -std=gnu99 -o CMakeFiles/uiaos-kernel.dir/src/libcSrc/stdio.c.o -c /workspaces/2024-ikt218-osdev/src/6_microhard/src/libcSrc/stdio.c",
+  "file": "/workspaces/2024-ikt218-osdev/src/6_microhard/src/libcSrc/stdio.c"
+},
+{
+  "directory": "/workspaces/2024-ikt218-osdev/build/6_microhard",
+  "command": "/usr/local/bin/i686-elf-gcc -I/workspaces/2024-ikt218-osdev/src/6_microhard/include -g -Wall -Wextra -nostdinc -nostdlib -fno-builtin -fno-stack-protector -fno-stack-check -fno-lto -fPIE -m32 -march=i386 -mno-mmx -mno-sse -mno-sse2 -mno-red-zone -Wno-main -g -Wno-unused-variable -Wno-unused-parameter -std=gnu99 -o CMakeFiles/uiaos-kernel.dir/src/libcSrc/string.c.o -c /workspaces/2024-ikt218-osdev/src/6_microhard/src/libcSrc/string.c",
+  "file": "/workspaces/2024-ikt218-osdev/src/6_microhard/src/libcSrc/string.c"
+}
+]
