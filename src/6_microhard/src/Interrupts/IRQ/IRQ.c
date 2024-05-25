@@ -36,9 +36,12 @@ void IRQinitiate() {
     }
 
     // to load specific created handlers
+    // timer handler (PIT):
+    // mask_pic(0); // we disable the timer for now
+    register_irq_handler(0, timerIRQHandler);
+
     // keyboard handler:
     register_irq_handler(1, keyboardIRQHandler);
-    mask_pic(0);
 
 }
 

@@ -14,10 +14,15 @@ size_t strlen(const char* str) {
     return len;
 }
 
+// inspired by: https://wiki.osdev.org/Printing_To_Screen
+char* itoa(int num, char* buf, int base) {
+    if (base < 2 || base > 36)
+        return '\0';
 
-char* itoa(int num, char* buf) {
-    // just to quickly return a string with a single digit is entered
-    if (num < 10 && num >= 0){
+    char characters[] = "0123456789abcdefghijklmnopqrstuvwxyz"; 
+
+    // just to quickly return a string with a single digit is entered (base 10)
+    if (base == 10 && num < 10 && num >= 0){
         buf[0] = '0' + num;
         buf[1] = '\0';
         endOfIntegerConversion = buf+1;
@@ -35,11 +40,10 @@ char* itoa(int num, char* buf) {
         *currentCharacter++ = '-';
     }
 
-
     // then we convert the number to a string by dividing it by 10 and adding the remainder to the buffer
     while (num) { // '0' pluss the value of the single digit is the same as the ascii value of that digit
-        *currentCharacter++ = '0' + num % 10; 
-        num /= 10; 
+        *currentCharacter++ = characters[num % base]; 
+        num /= base; 
     }
 
     // we save the pointer to the end of the string so we can use it in the dtoa function later (if needed).
@@ -104,7 +108,7 @@ char* dtoa(double num, char* buf, int precision){ // double to ascii
 
 
     // add the integer part (before the period) to the string
-    buf = itoa((int)num, buf); 
+    buf = itoa((int)num, buf, 10); 
 
     // retrieve the pointer to the end of the integer part
     currentChar = endOfIntegerConversion;
@@ -163,6 +167,13 @@ char* dtoa(double num, char* buf, int precision){ // double to ascii
 
 //     return tmp;
 // }
+
+
+
+char* itoh(unsigned num, char* buf){
+    return itoa(num, buf, 16);
+}
+
 
 
 bool isInt(char c){

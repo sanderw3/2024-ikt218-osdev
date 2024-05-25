@@ -5,5 +5,5 @@
 // this is mostly for systems where the pic is not integrated into the cpu, as it isn't the fastest chip
 // this is used to wait for the pic to be ready
 void waitio() {
-    outputb(0x80, 0x00);
+    outputb(empty_Port, 0x00);
 }

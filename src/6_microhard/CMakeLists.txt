@@ -75,12 +75,32 @@ add_executable(uiaos-kernel
 	src/Interrupts/IO/IO.asm
 	src/Interrupts/PIC/PIC.c
 	src/Interrupts/IRQ/IRQ.c
+
+	# to add the PIT (programmable interval timer)
+	src/Interrupts/PIT/PIT.c
+	src/Interrupts/IRQ/timerIRQ.c
+
+	# to add the memory
+	src/Memory/memory.c
+	src/Memory/malloc.c
+	src/Memory/memutils.c
+
+
+	# to add the music player
+	src/MusicPlayer/song.cpp
+
+	# misc
 	src/Drivers/keyboardIRQ.c
+	src/Drivers/display.c
 
 	# For the libc functions:
 	src/libcSrc/stdio.c
 	src/libcSrc/string.c
 )
+
+#include the headers to get < and > working
+set(STANDARD_LIBRARY_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/libc")
+include_directories(SYSTEM ${STANDARD_LIBRARY_INCLUDE_DIR})
 
 # Include directories for the kernel target
 target_include_directories(uiaos-kernel PUBLIC include)

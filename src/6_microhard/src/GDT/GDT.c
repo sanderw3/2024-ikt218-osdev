@@ -1,10 +1,12 @@
 #include "GDT/GDT.h"
 #include "libc/stdint.h"
 
-static GDTentry gdt[GDT_SIZE];   // instance to store 3 GDT entries
+static GDTentry gdt[GDT_SIZE];   // instance to store 5 GDT entries
 GDTdescriptor gp;                // to store the address and limit of the GDT 
 int32_t gdt_count = 0;           // to count the number of GDT entries
 
+
+// like done here: http://www.osdever.net/bkerndev/Docs/gdt.htm
 void GDTsetgate(size_t base, size_t limit, uint8_t access, uint8_t gran){
 
     // to setup the base address of the descriptor:
@@ -29,7 +31,7 @@ void GDTsetgate(size_t base, size_t limit, uint8_t access, uint8_t gran){
 void GDTinitiate(){
 
     // create GDT pointer
-    gp.limit = (sizeof(GDTentry) * 3) - 1;
+    gp.limit = (sizeof(GDTentry) * GDT_SIZE) - 1;
     gp.base = &gdt; 
 
     // this is our entires to the GDT table
@@ -41,7 +43,7 @@ void GDTinitiate(){
     GDTsetgate(
         0x00,
 
-        FULL_32_BIT_RANGE, 
+        FULL_32_BIT_RANGE,                         // 0xFFFFF (0xFFFFFFFF but only the first 0xFFFFF is used)
 
         // access field                            // bits are written in order: top -> bottom = right -> left
         SEGMENT_ACCESSED(0)             |          // 0 handled by the CPU
@@ -53,7 +55,7 @@ void GDTinitiate(){
         SEGMENT_PRESENT(1),                        // 1 = present
         
         // granularity field
-        SEGMENT_LIMIT(0XF)              |          // 1111 max limit (4GB)
+        // SEGMENT_LIMIT(0XF)              |          // 1111 max limit (4GB)
         SEGMENT_AVAILABILITY(0)         |          // 0 ignored by the cpu (for operativsystem)
         SEGMENT_64BIT(0)                |          // 0 for 16/32-bit, 1 for 64-bit
         SEGMENT_GRANULARITY(1)          |          // 1 granularity (4KB - 4GB) segment limits
@@ -77,7 +79,7 @@ void GDTinitiate(){
         SEGMENT_PRESENT(1),                        // 1 = present
 
         // granularity field
-        SEGMENT_LIMIT(0XF)              |          // 1111 max limit (4GB)
+        // SEGMENT_LIMIT(0XF)              |          // 1111 max limit (4GB)
         SEGMENT_AVAILABILITY(0)         |          // 0 ignored by the cpu (for operativsystem)
         SEGMENT_64BIT(0)                |          // 0 for 16/32-bit, 1 for 64-bit
         SEGMENT_GRANULARITY(1)          |          // 1 granularity (4KB - 4GB) segment limits
@@ -101,7 +103,7 @@ void GDTinitiate(){
         SEGMENT_PRESENT(1),                        // 1 = present
 
         // granularity field
-        SEGMENT_LIMIT(0XF)              |          // 1111 max limit (4GB)
+        // SEGMENT_LIMIT(0XF)              |          // 1111 max limit (4GB)
         SEGMENT_AVAILABILITY(0)         |          // 0 ignored by the cpu (for operativsystem)
         SEGMENT_64BIT(0)                |          // 0 for 16/32-bit, 1 for 64-bit
         SEGMENT_GRANULARITY(1)          |          // 1 granularity (4KB - 4GB) segment limits
@@ -125,7 +127,7 @@ void GDTinitiate(){
         SEGMENT_PRESENT(1),                        // 1 = present
 
         // granularity field
-        SEGMENT_LIMIT(0XF)              |          // 1111 max limit (4GB)
+        // SEGMENT_LIMIT(0XF)              |          // 1111 max limit (4GB)
         SEGMENT_AVAILABILITY(0)         |          // 0 ignored by the cpu (for operativsystem)
         SEGMENT_64BIT(0)                |          // 0 for 16/32-bit, 1 for 64-bit
         SEGMENT_GRANULARITY(1)          |          // 1 granularity (4KB - 4GB) segment limits

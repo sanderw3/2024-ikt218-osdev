@@ -3,9 +3,9 @@
 #include "stdarg.h"
 #include "stdbool.h"
 
-#define BDA_Video_Hardware 0x410                //packed bit flag to detect hardware 
-#define Color_Monitor_Address 0xB8000           // most commonly used (address to print to if the video type is color)
-#define Monochrome_Monitor_Address 0xB0000      // not color monitor (address to print to if the video type is monochrome)
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 // all the damn colors
 enum Color{
@@ -28,18 +28,15 @@ enum Color{
     ALL = -1
 };
 
-// to check what video types are available using bios data area flags
-// these value determine wheter the video type is color or monochrome
-enum VideoType{
-    VIDEO_TYPE_NONE = 0x00,  
-    VIDEO_TYPE_COLOR = 0x20,
-    VIDEO_TYPE_MONOCHROME = 0x30
-};
-
 // to get the correct video address for printing
-uint16_t Check_available_video_type();
-enum VideoType Get_video_type();
 bool Get_correct_printing_address();
+
+//to move the cursors position:
+void updateCursor();                      // to update the cursor position to the current x and y 
+void cursorRight();                       // for the right arrow key
+void cursorLeft();                        // for the left arrow key
+void cursorUp();                          // for the up arrow key
+void cursorDown();                        // for the down arrow key
 
 
 // change color of text
@@ -54,3 +51,9 @@ bool print(const char* data, size_t length);
 // prints a full string to the screen
 int printf(const char* __restrict__ format, ...);
 
+// scrolls the screen if needed
+void updateView();
+
+#ifdef __cplusplus
+}
+#endif

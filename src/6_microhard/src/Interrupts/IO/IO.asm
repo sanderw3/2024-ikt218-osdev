@@ -13,10 +13,9 @@ outputb:
 global inputb
 inputb:
     mov dx, [esp + 4]
-    xor eax, eax
     in al, dx
+    movzx eax, al
     ret
-
 
 ; enables all interrupts again, which is done when the cpu has finished an interrupt
 global EnableInterrupts 

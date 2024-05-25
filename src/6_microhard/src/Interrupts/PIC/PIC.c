@@ -68,7 +68,7 @@ void end_of_interrupt(int irqNum) {
 }
 
 
-
+// masks the pic (disables the irq)
 void mask_pic(int irqNum) {
     if (irqNum < 8) {
         uint8_t mask = inputb(MASTER_PIC_DATA_PORT);
@@ -81,6 +81,7 @@ void mask_pic(int irqNum) {
     }
 }
 
+// unmasks the pic (enables the irq)
 void unmask_pic(int irqNum) {
     if (irqNum < 8) {
         uint8_t mask = inputb(MASTER_PIC_DATA_PORT);

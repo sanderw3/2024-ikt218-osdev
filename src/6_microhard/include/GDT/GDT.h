@@ -1,9 +1,10 @@
 #pragma once
 #include "libc/stdint.h"
 
-#define FULL_32_BIT_RANGE                   0xFFFFFFFF  // 32 bit
+#define FULL_32_BIT_RANGE                   0xFFFFFFFF  // 32 bit (only the first 0xFFFFF is used)
 #define GDT_SIZE                            0x05        // 5 entries
 
+// based off of: https://wiki.osdev.org/GDT_Tutorial
 // set Access field bits:
 #define SEGMENT_ACCESSED(x)             ((x) << 0x00)                  // Accessed (0 for not accessed, 1 for accessed)
 #define SEGMENT_READ_AND_WRITE(x)       ((x) << 0x01)                  // Data: Read and write (0 for read only, 1 for read and write)    Code: (0 for executable only, 1 for executable and read)

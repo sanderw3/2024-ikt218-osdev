@@ -1,6 +1,7 @@
 #include "Interrupts/ISR/ISR.h"
 #include "libc/stdio.h"
 #include "libc/stddef.h"
+#include "Interrupts/IO/IO.h"
 
 // this is the table that contains all the functions we implement for each interrupt
 isrSecifiedHandler ISR_SPECIFIED_HANDLERS[IDT_SIZE];
@@ -52,10 +53,13 @@ void InterruptHandler(Interrupt_Info* info){
     if (ISR_SPECIFIED_HANDLERS[info->interrupt_number] != NULL){
         ISR_SPECIFIED_HANDLERS[info->interrupt_number](info);
     } else {
-        if (info->interrupt_number < 32){
+        if (info->interrupt_number < 32){ // < 0x20
             printf("Exception: %s\n", generatedExceptions[info->interrupt_number]);
-            // if there is no handler we just halt
-            __asm__ volatile ("cli; hlt");
+            // disable interrupts ("cli" instruction)
+            DisableInterrupts();
+
+            // halt the system
+            __asm__ volatile("hlt");
         }
         
         printf("No handler for interrupt\n");
