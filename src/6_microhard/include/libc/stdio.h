@@ -17,6 +17,7 @@ enum Color{
     MAGENTA = 0x05,
     BROWN = 0x06,
     LIGHTGRAY = 0x07,
+    DEFAULT = 0x07,
     DARKGRAY = 0x08,
     LIGHTBLUE = 0x09,
     LIGHTGREEN = 0x0A,
@@ -31,14 +32,6 @@ enum Color{
 // to get the correct video address for printing
 bool Get_correct_printing_address();
 
-//to move the cursors position:
-void updateCursor();                      // to update the cursor position to the current x and y 
-void cursorRight();                       // for the right arrow key
-void cursorLeft();                        // for the left arrow key
-void cursorUp();                          // for the up arrow key
-void cursorDown();                        // for the down arrow key
-
-
 // change color of text
 void Set_text_color(enum Color color);
 
@@ -51,8 +44,29 @@ bool print(const char* data, size_t length);
 // prints a full string to the screen
 int printf(const char* __restrict__ format, ...);
 
+
+// extra stuff which is not needed for stdio:
 // scrolls the screen if needed
 void updateView();
+
+// clears the screen
+void clearScreen();
+
+// prints to the screen with a delay
+void dramaticPrint(const char* string, uint32_t delay);
+
+//to move the cursors position:
+void updateCursor();                      // to update the cursor position to the current x and y 
+void cursorRight();                       // for the right arrow key
+void cursorLeft();                        // for the left arrow key
+void cursorUp();                          // for the up arrow key
+void cursorDown();                        // for the down arrow key
+
+void executeCommand();
+extern void performCommand(const char* command);
+void printSplashScreen();
+void moveToBeginningOfLine();
+
 
 #ifdef __cplusplus
 }

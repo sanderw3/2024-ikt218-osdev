@@ -54,15 +54,16 @@ void InterruptHandler(Interrupt_Info* info){
         ISR_SPECIFIED_HANDLERS[info->interrupt_number](info);
     } else {
         if (info->interrupt_number < 32){ // < 0x20
-            printf("Exception: %s\n", generatedExceptions[info->interrupt_number]);
+            printf("\nUnhandled exception: %s, num: %i, ecode: %i \n", 
+            generatedExceptions[info->interrupt_number], info->interrupt_number, info->error_code);
             // disable interrupts ("cli" instruction)
-            DisableInterrupts();
+            // DisableInterrupts();
 
             // halt the system
-            __asm__ volatile("hlt");
+            // __asm__ volatile("hlt");
         }
         
-        printf("No handler for interrupt\n");
+        printf("No specified handler for interrupt\n");
         
     }
 }

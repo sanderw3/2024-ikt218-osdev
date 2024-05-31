@@ -4,6 +4,9 @@
 #include "Interrupts/PIT/PIT.h"
 #include "Memory/memory.h"
 #include "MusicPlayer/song.h"
+#include "Drivers/keyboardIRQ.h"
+#include "Extra/command.h"
+
 
 // Existing global operator new overloads
 void* operator new(size_t size) {
@@ -38,6 +41,8 @@ void operator delete[](void* ptr, size_t size) noexcept {
 
 extern "C" int kernel_main(void);
 int kernel_main(){
+    setKeyboardNotUsed();
+
 
     // // Allocate some memory 
     // // using the kernel memory manager
@@ -59,25 +64,48 @@ int kernel_main(){
         // printf("[%d]: Slept using interrupts.\n", counter++);
     // };
 
-    // create the song player
-    SongPlayer* player = create_song_player();
+    // printf("Playing music...\n");
+
+
+
+
+
+
+    // // create the song player
+    // SongPlayer* player = create_song_player();
     
-    // make a list of all the songs to be played
-    Song* songs[] = {
-        new Song({secret, sizeof(music_1) / sizeof(Note)})
-    };
+    // // make a list of all the songs to be played
+    // Song* songs[] = {
+    //     new Song({music_1, sizeof(music_1) / sizeof(Note)})
+    // };
 
-    // get the number of songs
-    uint32_t n_songs = sizeof(songs) / sizeof(Song*);
+    // // get the number of songs
+    // uint32_t n_songs = sizeof(songs) / sizeof(Song*);
 
-    // play the songs in an infinite loop
-    while(true){
-        for(uint32_t i =0; i < n_songs; i++){
-            printf("Playing Song...\n");
-            player->play_song(songs[i]);
-            printf("Finished playing the song.\n");
-        }
-    };
+    // // play the songs in an infinite loop
+    // while(true){
+    //     for(uint32_t i =0; i < n_songs; i++){
+    //         printf("Playing Song...\n");
+    //         player->play_song(songs[i]);
+    //         printf("Finished playing the song.\n");
+    //     }
+    // };
+    int counter = 10;
+
+    while (!keyboardUsed() && counter-- > 0){
+        moveToBeginningOfLine();
+        printf("Playing music in %is", counter);
+        sleep_interrupt(1000);
+    }
+
+    if (keyboardUsed()){
+        moveToBeginningOfLine();
+        printf("Type 'help' for commands!\n");
+    } else{
+        playSong();
+        clearScreen();
+        printf("Type 'help' for commands!\n");
+    }
 
     return 0;
 }

@@ -126,47 +126,10 @@ char* dtoa(double num, char* buf, int precision){ // double to ascii
     }
 
 
-    // //This next part is purly to make the precision round up: (TODO: implement this:)
-
-    // // if the next digit is equal to 0.4 we have to check the next digit
-    // // This can be done before we check if the next digit is bigger than 5 because it doesn't change the outcome
-    // while (AfterPeriod * 10 == 4){
-    //     AfterPeriod = (AfterPeriod * 10) - 4; // remove that digit so we can check the next one
-    // }
-
-    // // if the next digit is greater than 0.5 we round up
-    // if ((int)AfterPeriod * 10 >= 5){
-
-    //     // if the digit we try to round up is already 9 we have to go back
-    //     while (*currentChar == '9' || *currentChar == '.'){
-    //         currentChar--;
-    //         if (currentChar == buf){
-                
-    //         }
-    //     }
-    // }
-
-
     // finally we add the terminating null character before returning
     *currentChar = '\0'; 
     return bufferStart;       
 }
-
-
-
-// TODO: consider implementing this
-// double changePrecision(double number, int precision){
-
-//     // we need a factor to multiply the number by and then devide it by the same, so we can get the correct precision
-//     float factor = 1.0;
-//     for (int i = 0; i < precision; i++){
-//         factor *= 10.0;
-//     }
-
-//     double tmp = (int)(number * factor) / factor;
-
-//     return tmp;
-// }
 
 
 
@@ -178,4 +141,14 @@ char* itoh(unsigned num, char* buf){
 
 bool isInt(char c){
     return (c <= '9' && c >= '0'); // checks if ascii value of c is a number
+}
+
+
+// compares two strings
+int strcmp(const char* str1, const char* str2){
+    while (*str1 && *str2 && *str1 == *str2){
+        str1++;
+        str2++;
+    }
+    return *str1 - *str2;
 }

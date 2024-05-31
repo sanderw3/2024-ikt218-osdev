@@ -18,6 +18,7 @@
 #define Enter 0x1C
 #define Space 0x39
 #define Tab 0x0F
+#define Delete 0x53
 
 
 #define F1 0x3B
@@ -48,6 +49,9 @@
 static bool leftShift = 0;
 static bool rightShift = 0;
 static bool caps = 0;
+static bool used = 0;
+static bool usedAndFinished = 0;
+
 
 
 
@@ -56,6 +60,7 @@ static bool caps = 0;
 // it reads the scancode from the keyboard and converts it to an ascii character
 void keyboardIRQHandler(Interrupt_Info* info) {;
     int keystroke = inputb(KeyboardPort);   
+    used = true;
 
     // for the special keys
     switch (keystroke) {
@@ -64,6 +69,13 @@ void keyboardIRQHandler(Interrupt_Info* info) {;
         case LeftShiftUp: leftShift = 0; return;
         case RightShiftUp: rightShift = 0; return;
         case CapsLock: caps = !caps; return;
+
+        // we dont need tose yet
+        case Ctrl: return;
+        case Alt: return;
+        
+        // for commands
+        case Enter: executeCommand(); break;
 
         // cursor movement keys:
         case UpArrow: cursorUp(); return;
@@ -78,6 +90,8 @@ void keyboardIRQHandler(Interrupt_Info* info) {;
     
     if (ascii != -1)
         putchar(ascii);
+
+    usedAndFinished = true;
 }
 
 
@@ -153,7 +167,22 @@ int scancodeToAscii(int scancode){
         case Space: return ' ';
         case Tab: return '\t';
         case Backspace: return '\b';
+        case Delete: return '\x7F';
         default: return UnhandeledKey;
     }
 }
 
+
+
+bool keyboardUsed(){
+    return used;
+}
+
+void setKeyboardNotUsed(){
+    used = false;
+    usedAndFinished = false;
+}
+
+bool keyboardNotFinished(){
+    return usedAndFinished;
+}

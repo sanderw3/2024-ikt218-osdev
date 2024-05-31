@@ -6,11 +6,14 @@
 #include "libc/stddef.h"
 #include "libc/string.h"
 #include "Drivers/display.h"
+#include "Interrupts/PIT/PIT.h"
+#include "MusicPlayer/song.h"
 
 
 //screen offsets used when printing (for the cursor)
 static int y = 0;
 static int x = 0;
+
 int CurrentCol = 0;
 
 // for printing with precision
@@ -193,6 +196,7 @@ int putchar(int ic){
         x = 0;                          //back left side of screen
         y++;                            // jump down one row
         updateCursor();
+        updateView();
         return ic;
     
     case '\b':                          // check if we have a backspace    
@@ -200,9 +204,8 @@ int putchar(int ic){
             x--;                        // move back one character
             putchar('\0');               // print nothing to overwrite the character
             x--;                        // move back one character             
-        } else if (y > 0){
-            x = ScreenWidth - 1;        // if we are at the beginning of the line, we go back to the previous line
-            y--;                        // move up one row
+        } else {
+            x = 0;        // if we are at the beginning of the line, we go back to the previous line
         }
         updateCursor();
         return ic;
@@ -211,6 +214,10 @@ int putchar(int ic){
         x += 4;                         // move 4 characters to the right
         updateCursor();
         return ic;
+
+    case '\x7F':                        // check if we have a delete
+        putchar('\0');                  // delete is basically just printing nothing
+        return ic; 
 
     default:
         if (x >= ScreenWidth) {
@@ -229,7 +236,7 @@ int putchar(int ic){
 
     // this is just to make all the characters switch between different colors (for fun)
     if (Text_color == ALL){ // currentCol is incremented for each character, but if it exceeds 0x0F we start over
-        mycolor = (CurrentCol++ - (0x0F * (CurrentCol > 0x0F))) % 0x10;
+        mycolor = (CurrentCol+= 1 - (0x0F * (CurrentCol > 0x0F))) % 0x0F + 1;
     }
 
 
@@ -249,31 +256,66 @@ int putchar(int ic){
 }
 
 
+
+
+
+
+
+
+
+
+/* ------------ not libc needed --------------*/
+
 // cursor functions
 updateCursor(){
     moveCursor(y, x);
 }
 void cursorRight(){
-    if (x < ScreenWidth)        {x++; }                                 // moves right
-    else if (y < ScreenHeight)  {y++; x=0; }                            // moves down
-    else                        {y = 0; x = 0; }                        // loops back to the top
-    moveCursor(y, x);
+    // move right
+    if (Video_memory && 
+        (Video_memory[(y * ScreenWidth + (x+1)) * 2] != '\0' || 
+        Video_memory[(y * ScreenWidth + x) * 2] != '\0') &&
+        !(y == ScreenHeight && x == ScreenWidth)) {
+            
+        x++;
+    }
+
+    updateCursor();
 }
 void cursorLeft(){
-    if (x > 0)                  {x--;}
-    else if (y > 0)             {y--; x = ScreenWidth;}                 // if we are at the beginning of the line, we go back to the previous line
-    else                        {y = ScreenHeight; x = ScreenWidth;}    // loops back to the bottom
-    moveCursor(y, x);
+    // move left
+    if (x > 0) {
+        x--;
+    } 
+
+    updateCursor();
 }
 void cursorUp(){
-    if (y > 0)                  {y--;}
-    else                        {y = ScreenHeight;}                     // loops back to the top
-    moveCursor(y, x);
+    // move up
+    if (y > 0) {
+        y--;
+    }
+
+    // move cursor left if the current line is empty
+    while (Video_memory[(y * ScreenWidth + x) * 2] == '\0' && x > 0){
+        cursorLeft();
+    }
+    cursorRight();
+    updateCursor();
 }
 void cursorDown(){
-    if (y < ScreenHeight)       {y++;}
-    else                        {y = 0;}                                // loops back to the bottom
-    moveCursor(y, x);
+    if (y < ScreenHeight){
+        y++;
+    
+        // move cursor left if the current line is empty
+        while (Video_memory[(y * ScreenWidth + x) * 2] == '\0' && x > 0){
+            cursorLeft();
+        }
+        cursorRight();
+
+    }
+
+    updateCursor();
 }
 
 
@@ -308,4 +350,62 @@ updateView(){
         x = 0;
     }
     // end of scrolling
+}
+
+
+
+clearScreen(){
+    // clear the screen by filling it with spaces
+    for (unsigned short i = 0; i < ScreenHeight; i++){
+        for (unsigned short column = 0; column < ScreenWidth; column++){
+            Video_memory[(i * ScreenWidth + column) * 2] = '\0';                // empty space
+            Video_memory[(i * ScreenWidth + column) * 2 + 1] = LIGHTGRAY;      // default color
+        }
+    }
+    // reset the cursor
+    y = 0;
+    x = 0;
+    updateCursor();
+}
+
+
+void dramaticPrint(const char* string, uint32_t delay){
+    while (*string){
+        putchar(*string++);
+        sleep_interrupt(delay);
+    }
+}
+
+
+void executeCommand(){
+    // get the command
+    // x will be at the length of the command
+    char command[x+1];
+    for (int i = 0; i < x; i++){
+        command[i] = Video_memory[(y * ScreenWidth + i) * 2];
+    }
+    command[x] = '\0';
+    // printf("command: %s", command);
+
+    performCommand(command);
+}
+
+
+
+
+void printSplashScreen(){
+    dramaticPrint("                                             _                          _ \n"
+           "                  _                         ( )                        ( )\n"
+           "       ___ ___   (_)    ___   _ __     _    | |__      _ _   _ __     _| |\n"
+           "     /' _ ` _ `\\ | |  /'___) ( '__)  /'_`\\  |  _ `\\  /'_` ) ( '__)  /'_` |\n"
+           "     | ( ) ( ) | | | ( (___  | |    ( (_) ) | | | | ( (_| | | |    ( (_| |\n"
+           "     (_) (_) (_) (_) `\\____) (_)    `\\___/' (_) (_) `\\__,_) (_)    `\\__,_)\n"
+           "\n                                    Group 6                                   \n", 5);
+    // sleep_interrupt();
+}
+
+
+moveToBeginningOfLine(){
+    x = 0;
+    updateCursor();
 }

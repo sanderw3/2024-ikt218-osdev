@@ -9,7 +9,8 @@
 
 #include <stdint.h> /* Include standard integer types */
 #include <stddef.h> /* Include standard definitions */
-    
+#include <stdbool.h>
+
 #ifdef __cplusplus // compiler errors when code is compiled as c++
 extern "C" {
 #endif
@@ -46,7 +47,7 @@ extern void* memset (void * ptr, int value, size_t num ); /* Sets num bytes star
 extern void* memset16 (void *ptr, uint16_t value, size_t num); /* Sets num bytes starting from ptr to a 16-bit value */
 
 /* Other helper functions*/
-void print_memory_layout();
+void print_memory_layout(bool delay);
 void panic(uint8_t* error);
 
 #ifdef __cplusplus

@@ -1,5 +1,6 @@
 #include "Memory/memory.h"
 // #include <libc/system.h>
+#include "Interrupts/PIT/PIT.h"
 
 #define MAX_PAGE_ALIGNED_ALLOCS 32
 
@@ -24,15 +25,40 @@ void init_kernel_memory(uint32_t* kernel_end)
     printf("Kernel heap starts at 0x%x\n", last_alloc);
 }
 
-// Print the current memory layout
-void print_memory_layout()
+// Print the current memory layout <- added all the delay for dramatic effect :)
+void print_memory_layout(bool delay)
 {
-    printf("Memory used: %d bytes\n", memory_used);
-    printf("Memory free: %d bytes\n", heap_end - heap_begin - memory_used);
-    printf("Heap size: %d bytes\n", heap_end - heap_begin);
-    printf("Heap start: 0x%x\n", heap_begin);
-    printf("Heap end: 0x%x\n", heap_end);
-    printf("PHeap start: 0x%x\nPHeap end: 0x%x\n", pheap_begin, pheap_end);
+
+    if (delay){
+        sleep_interrupt(500);
+        printf("Memory used: %d bytes\n", memory_used);
+        sleep_interrupt(250);   
+
+        printf("Memory free: %d bytes\n", heap_end - heap_begin - memory_used);
+        sleep_interrupt(250);   
+
+        printf("Heap size: %d bytes\n", heap_end - heap_begin);
+        sleep_interrupt(250);   
+
+        printf("Heap start: 0x%x\n", heap_begin);
+        sleep_interrupt(250);   
+
+        printf("Heap end: 0x%x\n", heap_end);
+        sleep_interrupt(250);   
+
+        printf("PHeap start: 0x%x\nPHeap end: 0x%x\n", pheap_begin, pheap_end);
+        sleep_interrupt(1000);
+    }
+
+    // and one without delay
+    else{
+        printf("Memory used: %d bytes\n", memory_used);
+        printf("Memory free: %d bytes\n", heap_end - heap_begin - memory_used);
+        printf("Heap size: %d bytes\n", heap_end - heap_begin);
+        printf("Heap start: 0x%x\n", heap_begin);
+        printf("Heap end: 0x%x\n", heap_end);
+        printf("PHeap start: 0x%x\nPHeap end: 0x%x\n", pheap_begin, pheap_end);
+    }
 }
 
 // Free a block of memory

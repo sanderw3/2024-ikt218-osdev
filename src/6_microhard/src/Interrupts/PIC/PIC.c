@@ -1,12 +1,13 @@
 #include "Interrupts/PIC/PIC.h"
 #include "Interrupts/IO/IO.h"
-#include "libc/stdint.h"
+#include "libc/stdint.h"    
 
 void initialize_pic(uint8_t master_offset, uint8_t slave_offset) {
 
     uint8_t a1, a2;
  
-	a1 = inputb(MASTER_PIC_DATA_PORT);                        // save masks
+// save masks
+	a1 = inputb(MASTER_PIC_DATA_PORT);                        
 	a2 = inputb(SLAVE_PIC_DATA_PORT);
 
 // control word 1
@@ -56,9 +57,6 @@ void initialize_pic(uint8_t master_offset, uint8_t slave_offset) {
 
 
 
-// what is this?>?!?!?
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
 // non specific end of interrupt
 void end_of_interrupt(int irqNum) {
     if (irqNum >= 8) {
@@ -95,20 +93,21 @@ void unmask_pic(int irqNum) {
 }
 
 
-
+// retrieves the interrupt request register
 uint16_t RetrieveIRQRegisters() {
     outputb(MASTER_PIC_COMMAND_PORT, PIC_READ_IRR);
     outputb(SLAVE_PIC_COMMAND_PORT, PIC_READ_IRR);
     return (inputb(SLAVE_PIC_DATA_PORT) << 8) | inputb(MASTER_PIC_DATA_PORT);
 }
 
+// retrieves the in-service register
 uint16_t RetrieveISRRegisters() {
     outputb(MASTER_PIC_COMMAND_PORT, PIC_READ_ISR);
     outputb(SLAVE_PIC_COMMAND_PORT, PIC_READ_ISR);
     return (inputb(SLAVE_PIC_DATA_PORT) << 8) | inputb(MASTER_PIC_DATA_PORT);
 }
 
-
+// disables the pic
 void DisablePic(void) {
     outputb(MASTER_PIC_DATA_PORT, 0xff);
     outputb(SLAVE_PIC_DATA_PORT, 0xff);

@@ -17,7 +17,8 @@
 
 
 
-void moveCursor(int x, int y);            // to set the cursor a specific x and y position
+void moveCursor(int x, int y);                   // to set the cursor a specific x and y position
+void setCursorShape(uint8_t start, uint8_t end); // to set the cursor shape
 
 
 // to check what video types are available using bios data area flags
@@ -32,3 +33,16 @@ enum VideoType{
     VIDEO_TYPE_COLOR = 0x20,
     VIDEO_TYPE_MONOCHROME = 0x30
 };
+
+
+//examples:
+void setBlockCursor() ;
+
+// Example 2: Underline Cursor (appears as a line at the bottom of the cell)
+void setUnderlineCursor() ;
+
+// Example 3: Thin Horizontal Line Cursor (appears as a thin line in the middle of the cell)
+void setThinLineCursor() ;
+
+// Example 4: Half Block Cursor (covers the upper half of the character cell)
+void setHalfBlockCursor() ;

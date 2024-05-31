@@ -93,6 +93,10 @@ add_executable(uiaos-kernel
 	src/Drivers/keyboardIRQ.c
 	src/Drivers/display.c
 
+	# extra
+	src/Extra/command.cpp
+	src/Extra/math.cpp
+
 	# For the libc functions:
 	src/libcSrc/stdio.c
 	src/libcSrc/string.c

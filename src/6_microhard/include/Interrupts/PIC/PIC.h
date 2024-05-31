@@ -1,6 +1,10 @@
 #pragma once
 #include "libc/stdint.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // since we are operating on the x86 architecture, we have two PICs (cascade mode)
 
 #define MASTER_PIC_COMMAND_PORT     0x20    // command port for master PIC
@@ -22,13 +26,13 @@
 // bit six to eight are ignored on x86 architecture (set to 0)
 */
 #define PIC_ICW4(x)                 (x << 0x00)    // ICW4 1 is needed (0 is not needed)
-#define PIC_SINGLE(x)               (x << 0x01)    // single mode (0) or cascade mode (1)
+#define PIC_SINGLE(x)               (x << 0x01)    // cascade mode (0) or single mode (1)
 #define PIC_INTERVAL4(x)            (x << 0x02)    // call address interval of 4 (0) or 8 (1)
 #define PIC_LEVEL(x)                (x << 0x03)    // level triggered mode (1) or edge triggered mode (0)
 #define PIC_INIT(x)                 (x << 0x04)    // initialization - required! (1)
 
 
-/* Control Word 2
+/* Control Word 4
 // first bit tells if the pic is in 8086/8088 mode (1) or MCS-80/85 mode (0)
 // second bit tells if the pic is in automatic end of interrupt mode (1) or normal EOI mode (0)
 // third bit tells if the pic is the master (1) or the slave (0)
@@ -51,3 +55,7 @@ void mask_pic(int irqNum);
 void unmask_pic(int irqNum);
 uint16_t RetrieveIRQRegisters();
 uint16_t RetrieveISRRegisters();
+
+#ifdef __cplusplus
+}
+#endif

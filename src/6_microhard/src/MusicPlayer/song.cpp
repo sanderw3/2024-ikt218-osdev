@@ -51,14 +51,13 @@ void play_sound(uint32_t frequency) {
 }
 
 void stop_sound() {
-    // Pseudocode for stop_sound:
     // 1. Read the current state from the PC speaker control port.
     uint8_t speaker_state = inputb(PC_SPEAKER_PORT);
 
 
     // 2. Clear the bit that enables speaker data to stop the sound.
     //    - Use bitwise AND with the complement of the bit responsible for enabling the speaker data.
-    outputb(PC_SPEAKER_PORT, speaker_state & 0b11111110);
+    outputb(PC_SPEAKER_PORT, speaker_state & 0b11111101);
 
 }
 

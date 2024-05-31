@@ -6,6 +6,9 @@
 //returns the length of a string
 size_t strlen(const char* str);
 
+//compares two strings
+int strcmp(const char* str1, const char* str2);
+
 // for integers
 // converts a number to a string (this particular function has only been made to base 10 for now)
 char* itoa(int num, char* buf, int base);
